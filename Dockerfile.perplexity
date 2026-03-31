@@ -1,0 +1,14 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY requirements.perplexity.txt requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY perplexity_client.py .
+COPY chain_of_search_perplexity.py .
+COPY main_perplexity.py .
+
+EXPOSE 8000
+
+CMD ["uvicorn", "main_perplexity:app", "--host", "0.0.0.0", "--port", "8000"]

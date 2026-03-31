@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  chain-of-search-pplx:
+    build:
+      context: .
+      dockerfile: Dockerfile.perplexity
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env.perplexity
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
